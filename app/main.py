@@ -34,4 +34,4 @@ async def predict(features: WineFeatures):
     ]])
     prediction = model.predict(feature_array)
     wine_type = "Red Wine" if prediction[0][0] > 0.5 else "White Wine"
-    return {"prediction": wine_type, "confidence": float(prediction[0][0])}
+    return {"prediction": wine_type, "confidence": round(float(prediction[0][0]), 2)}
