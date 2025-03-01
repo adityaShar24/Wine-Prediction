@@ -14,10 +14,6 @@ os.makedirs(model_dir, exist_ok=True)
 red = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv", sep=";")
 white = pd.read_csv("http://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv", sep=";")
 
-print(f'Red df- {red.head()}')
-print(f'White df - {white.head()}')
-print(f'White columns - {white.columns}')
-print(f'Red columns - {red.columns}')
 
 # Add labels: 1 for red wine, 0 for white wine
 red["type"] = 1
