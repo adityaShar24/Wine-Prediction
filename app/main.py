@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from keras.models import load_model
 import numpy as np
 from pydantic import BaseModel
@@ -6,6 +7,14 @@ from pydantic import BaseModel
 model = load_model("app/model/wine_model.h5")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins (for development only)
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 class WineFeatures(BaseModel):
     fixed_acidity : float
@@ -34,4 +43,4 @@ async def predict(features: WineFeatures):
     ]])
     prediction = model.predict(feature_array)
     wine_type = "Red Wine" if prediction[0][0] > 0.5 else "White Wine"
-    return {"prediction": wine_type, "confidence": round(float(prediction[0][0]), 2)}
+    return {"prediction": wine_type}
